@@ -1,0 +1,53 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="VlSuccessful"
+run/main_scene="res://scenes/main_menu.tscn"
+config/features=PackedStringArray("4.6", "Mobile")
+config/icon="res://icon.svg"
+
+[autoload]
+
+GameState="*res://autoload/game_state.gd"
+TimeManager="*res://autoload/time_manager.gd"
+EconomyManager="*res://autoload/economy_manager.gd"
+TaxManager="*res://autoload/tax_manager.gd"
+ProgressionManager="*res://autoload/progression_manager.gd"
+LicenseManager="*res://autoload/license_manager.gd"
+TaxiCareerManager="*res://autoload/taxi_career_manager.gd"
+JobManager="*res://autoload/job_manager.gd"
+BusinessManager="*res://autoload/business_manager.gd"
+AdManager="*res://autoload/ad_manager.gd"
+MarketManager="*res://autoload/market_manager.gd"
+SceneNav="*res://autoload/scene_nav.gd"
+SaveManager="*res://autoload/save_manager.gd"
+
+[display]
+
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=1
+
+[gui]
+
+theme/custom="res://theme/game_theme.tres"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="mobile"

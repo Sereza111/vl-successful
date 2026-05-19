@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7taxi_visual01"]
+
+[ext_resource type="Script" path="res://scripts/visuals/taxi_visual.gd" id="1_taxi_visual"]
+
+[node name="TaxiVisual" type="Node2D"]
+script = ExtResource("1_taxi_visual")
+
+[node name="Body" type="Polygon2D" parent="."]
+
+[node name="Roof" type="Polygon2D" parent="."]
+
+[node name="Window" type="Polygon2D" parent="."]
+
+[node name="WheelLeft" type="Polygon2D" parent="."]
+
+[node name="WheelRight" type="Polygon2D" parent="."]
+
+[node name="Checker" type="Line2D" parent="."]
+
+[node name="Headlight" type="Polygon2D" parent="."]

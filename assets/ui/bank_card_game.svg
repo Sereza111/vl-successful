@@ -1,0 +1,64 @@
+<svg width="100%" viewBox="0 0 680 440" role="img" style="" xmlns="http://www.w3.org/2000/svg">
+  <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Банковская карта для игры</title>
+  <desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Игровая банковская карта с чипом, номером и именем владельца</desc>
+  <defs>
+    <clipPath id="card-clip">
+      <rect x="90" y="40" width="500" height="310" rx="24"/>
+    </clipPath>
+  </defs>
+
+  <!-- Тень -->
+  <rect x="96" y="48" width="500" height="310" rx="24" fill="#00000022" style="fill:rgba(0, 0, 0, 0.133);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Основа карты — тёмно-синяя -->
+  <rect x="90" y="40" width="500" height="310" rx="24" fill="#1a2744" style="fill:rgb(26, 39, 68);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Декоративные круги (узор на фоне) -->
+  <circle cx="480" cy="100" r="180" fill="none" stroke="#ffffff0d" stroke-width="60" style="fill:none;stroke:rgba(255, 255, 255, 0.05);color:rgb(255, 255, 255);stroke-width:60px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="480" cy="100" r="120" fill="none" stroke="#ffffff0d" stroke-width="40" style="fill:none;stroke:rgba(255, 255, 255, 0.05);color:rgb(255, 255, 255);stroke-width:40px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="480" cy="100" r="60" fill="none" stroke="#ffffff0a" stroke-width="30" style="fill:none;stroke:rgba(255, 255, 255, 0.04);color:rgb(255, 255, 255);stroke-width:30px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Полоса акцента вверху -->
+  <rect x="90" y="40" width="500" height="8" rx="0" fill="#4a7fff" clip-path="url(#card-clip)" style="fill:rgb(74, 127, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Логотип банка / название -->
+  <rect x="120" y="65" width="4" height="28" rx="2" fill="#4a7fff" style="fill:rgb(74, 127, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text font-family="monospace" font-size="20" font-weight="700" fill="#ffffff" x="132" y="86" style="fill:rgb(255, 255, 255);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:monospace;font-size:20px;font-weight:700;text-anchor:start;dominant-baseline:auto">БИЗНЕС БАНК</text>
+
+  <!-- Чип -->
+  <rect x="120" y="118" width="52" height="40" rx="6" fill="#d4a843" style="fill:rgb(212, 168, 67);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <rect x="126" y="124" width="40" height="28" rx="4" fill="none" stroke="#a07820" stroke-width="1.5" style="fill:none;stroke:rgb(160, 120, 32);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <line x1="120" y1="133" x2="172" y2="133" stroke="#a07820" stroke-width="1" style="fill:rgb(0, 0, 0);stroke:rgb(160, 120, 32);color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <line x1="120" y1="148" x2="172" y2="148" stroke="#a07820" stroke-width="1" style="fill:rgb(0, 0, 0);stroke:rgb(160, 120, 32);color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <line x1="146" y1="118" x2="146" y2="158" stroke="#a07820" stroke-width="1" style="fill:rgb(0, 0, 0);stroke:rgb(160, 120, 32);color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Бесконтактная оплата (волны) -->
+  <path d="M188,128 Q196,138 188,148" fill="none" stroke="#ffffff55" stroke-width="2" stroke-linecap="round" style="fill:none;stroke:rgba(255, 255, 255, 0.333);color:rgb(255, 255, 255);stroke-width:2px;stroke-linecap:round;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <path d="M195,122 Q208,138 195,154" fill="none" stroke="#ffffff55" stroke-width="2" stroke-linecap="round" style="fill:none;stroke:rgba(255, 255, 255, 0.333);color:rgb(255, 255, 255);stroke-width:2px;stroke-linecap:round;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <path d="M202,116 Q220,138 202,160" fill="none" stroke="#ffffff44" stroke-width="2" stroke-linecap="round" style="fill:none;stroke:rgba(255, 255, 255, 0.267);color:rgb(255, 255, 255);stroke-width:2px;stroke-linecap:round;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Номер карты -->
+  <text font-family="monospace" font-size="22" font-weight="500" letter-spacing="3" fill="#ffffffcc" x="120" y="225" style="fill:rgba(255, 255, 255, 0.8);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:monospace;font-size:22px;font-weight:500;text-anchor:start;dominant-baseline:auto">1234   5678   9012   3456</text>
+
+  <!-- Срок действия -->
+  <text font-family="monospace" font-size="11" fill="#ffffff66" x="120" y="260" style="fill:rgba(255, 255, 255, 0.4);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:monospace;font-size:11px;font-weight:400;text-anchor:start;dominant-baseline:auto">ДЕЙСТВУЕТ ДО</text>
+  <text font-family="monospace" font-size="16" font-weight="500" fill="#ffffffcc" x="120" y="278" style="fill:rgba(255, 255, 255, 0.8);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:monospace;font-size:16px;font-weight:500;text-anchor:start;dominant-baseline:auto">12/28</text>
+
+  <!-- Имя владельца -->
+  <text font-family="monospace" font-size="16" font-weight="500" letter-spacing="1" fill="#ffffffcc" x="120" y="316" style="fill:rgba(255, 255, 255, 0.8);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:monospace;font-size:16px;font-weight:500;text-anchor:start;dominant-baseline:auto">IVAN BIZNESMEN</text>
+
+  <!-- Логотип платёжной системы (два круга) -->
+  <circle cx="538" cy="300" r="28" fill="#eb001b99" style="fill:rgba(235, 0, 27, 0.6);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <circle cx="562" cy="300" r="28" fill="#f79e1b99" style="fill:rgba(247, 158, 27, 0.6);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <ellipse cx="550" cy="300" rx="10" ry="28" fill="#ff5f0099" style="fill:rgba(255, 95, 0, 0.6);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Блеск (тонкая полоса) -->
+  <rect x="90" y="40" width="500" height="4" rx="0" fill="#ffffff08" clip-path="url(#card-clip)" style="fill:rgba(255, 255, 255, 0.03);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <rect x="90" y="44" width="500" height="2" rx="0" fill="#ffffff05" clip-path="url(#card-clip)" style="fill:rgba(255, 255, 255, 0.02);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Обводка карты -->
+  <rect x="90" y="40" width="500" height="310" rx="24" fill="none" stroke="#ffffff15" stroke-width="1.5" style="fill:none;stroke:rgba(255, 255, 255, 0.082);color:rgb(255, 255, 255);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+  <!-- Подпись под карточкой -->
+  <text font-family="monospace" font-size="12" fill="var(--color-text-tertiary)" x="340" y="400" text-anchor="middle" style="fill:rgb(156, 154, 146);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:monospace;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:auto">Карта для игры — можно использовать как спрайт в Godot</text>
+</svg>

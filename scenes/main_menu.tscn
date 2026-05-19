@@ -1,0 +1,199 @@
+[gd_scene format=3 uid="uid://3gyw1q2pe4b5"]
+
+[ext_resource type="Script" uid="uid://ow76xuwx0tef" path="res://scripts/ui/main_menu.gd" id="1_main_menu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+bg_color = Color(0.102, 0.153, 0.267, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dock"]
+bg_color = Color(0.12, 0.14, 0.18, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[node name="MainMenu" type="Control" unique_id=674089186]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_main_menu")
+
+[node name="Background" type="ColorRect" parent="." unique_id=161536804]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.09, 0.12, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1692743756]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=221035514]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="BankCard" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=938517076]
+custom_minimum_size = Vector2(0, 230)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="CardStack" type="Control" parent="MarginContainer/VBoxContainer/BankCard" unique_id=2139358430]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AccentStrip" type="ColorRect" parent="MarginContainer/VBoxContainer/BankCard/CardStack" unique_id=1254047625]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+color = Color(0.29, 0.5, 1, 1)
+
+[node name="CardMargin" type="MarginContainer" parent="MarginContainer/VBoxContainer/BankCard/CardStack" unique_id=1052659276]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="CardVBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/BankCard/CardStack/CardMargin" unique_id=817181215]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HeaderRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer/BankCard/CardStack/CardMargin/CardVBox" unique_id=1896040118]
+layout_mode = 2
+
+[node name="BankNameRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer/BankCard/CardStack/CardMargin/CardVBox/HeaderRow" unique_id=1402413284]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="AccentBar" type="ColorRect" parent="MarginContainer/VBoxContainer/BankCard/CardStack/CardMargin/CardVBox/HeaderRow/BankNameRow" unique_id=1098178626]
+custom_minimum_size = Vector2(4, 22)
+layout_mode = 2
+color = Color(0.29, 0.5, 1, 1)
+
+[node name="BankNameLabel" type="Label" parent="MarginContainer/VBoxContainer/BankCard/CardStack/CardMargin/CardVBox/HeaderRow/BankNameRow" unique_id=944498252]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_font_sizes/font_size = 17
+text = "БИЗНЕС БАНК"
+
+[node name="TaxBadge" type="Button" parent="MarginContainer/VBoxContainer/BankCard/CardStack/CardMargin/CardVBox/HeaderRow" unique_id=380380185]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.98, 0.92, 0.72, 1)
+theme_override_font_sizes/font_size = 11
+text = "Налог ✓"
+flat = true
+
+[node name="ChipRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer/BankCard/CardStack/CardMargin/CardVBox" unique_id=363728245]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Chip" type="ColorRect" parent="MarginContainer/VBoxContainer/BankCard/CardStack/CardMargin/CardVBox/ChipRow" unique_id=1188253678]
+custom_minimum_size = Vector2(52, 36)
+layout_mode = 2
+color = Color(0.835, 0.659, 0.263, 1)
+
+[node name="NfcLabel" type="Label" parent="MarginContainer/VBoxContainer/BankCard/CardStack/CardMargin/CardVBox/ChipRow" unique_id=1651421443]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.45)
+theme_override_font_sizes/font_size = 20
+text = ")))"
+
+[node name="CardNumberLabel" type="Label" parent="MarginContainer/VBoxContainer/BankCard/CardStack/CardMargin/CardVBox" unique_id=758431917]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.75)
+theme_override_font_sizes/font_size = 15
+text = "••••  ••••  ••••  4821"
+
+[node name="BalanceSpacer" type="Control" parent="MarginContainer/VBoxContainer/BankCard/CardStack/CardMargin/CardVBox" unique_id=942730212]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BalanceLabel" type="Label" parent="MarginContainer/VBoxContainer/BankCard/CardStack/CardMargin/CardVBox" unique_id=1193166620]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 38
+text = "12 500 ₽"
+
+[node name="ExpensesLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=16301217]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.68, 0.75, 1)
+theme_override_font_sizes/font_size = 14
+text = "Сегодня расходов пока нет"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1218423315]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BottomDock" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=228789741]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dock")
+
+[node name="DockMargin" type="MarginContainer" parent="MarginContainer/VBoxContainer/BottomDock" unique_id=1503563407]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 14
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 14
+
+[node name="DockHBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer/BottomDock/DockMargin" unique_id=1416011024]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="TaxDockButton" type="Button" parent="MarginContainer/VBoxContainer/BottomDock/DockMargin/DockHBox" unique_id=720591772]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Налог"
+
+[node name="MapDockButton" type="Button" parent="MarginContainer/VBoxContainer/BottomDock/DockMargin/DockHBox" unique_id=1734038641]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Карта"
+
+[node name="WorkDockButton" type="Button" parent="MarginContainer/VBoxContainer/BottomDock/DockMargin/DockHBox" unique_id=1692946645]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Работа"

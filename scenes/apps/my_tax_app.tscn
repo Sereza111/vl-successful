@@ -1,0 +1,204 @@
+[gd_scene load_steps=4 format=3 uid="uid://mytaxapp0001"]
+
+[ext_resource type="Script" path="res://scripts/apps/my_tax_app.gd" id="1_app"]
+[ext_resource type="PackedScene" uid="uid://cswipeconfirm1" path="res://scenes/ui/components/swipe_confirm.tscn" id="2_swipe"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_header"]
+bg_color = Color(0.15, 0.22, 0.18, 1)
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[node name="MyTaxApp" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_app")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07, 0.1, 0.09, 1)
+
+[node name="RootMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="RootMargin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Header" type="PanelContainer" parent="RootMargin/VBox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_header")
+
+[node name="HeaderMargin" type="MarginContainer" parent="RootMargin/VBox/Header"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HeaderHBox" type="HBoxContainer" parent="RootMargin/VBox/Header/HeaderMargin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="BackButton" type="Button" parent="RootMargin/VBox/Header/HeaderMargin/HeaderHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+text = "←"
+
+[node name="HeaderTitle" type="Label" parent="RootMargin/VBox/Header/HeaderMargin/HeaderHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.9, 0.95, 0.9, 1)
+theme_override_font_sizes/font_size = 22
+text = "Мой налог VL"
+vertical_alignment = 1
+
+[node name="TabBar" type="HBoxContainer" parent="RootMargin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TabHome" type="Button" parent="RootMargin/VBox/TabBar"]
+unique_name_in_owner = true
+size_flags_horizontal = 3
+layout_mode = 2
+text = "Главная"
+
+[node name="TabDocs" type="Button" parent="RootMargin/VBox/TabBar"]
+unique_name_in_owner = true
+size_flags_horizontal = 3
+layout_mode = 2
+text = "Документы"
+
+[node name="TabPay" type="Button" parent="RootMargin/VBox/TabBar"]
+unique_name_in_owner = true
+size_flags_horizontal = 3
+layout_mode = 2
+text = "Оплата"
+
+[node name="Content" type="Control" parent="RootMargin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HomeTab" type="VBoxContainer" parent="RootMargin/VBox/Content"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+
+[node name="HomeCard" type="PanelContainer" parent="RootMargin/VBox/Content/HomeTab"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_header")
+
+[node name="HomeMargin" type="MarginContainer" parent="RootMargin/VBox/Content/HomeTab/HomeCard"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HomeVBox" type="VBoxContainer" parent="RootMargin/VBox/Content/HomeTab/HomeCard/HomeMargin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HomeLabel" type="Label" parent="RootMargin/VBox/Content/HomeTab/HomeCard/HomeMargin/HomeVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.85, 0.75, 1)
+theme_override_font_sizes/font_size = 14
+text = "Начислено к уплате"
+
+[node name="TaxAmountLabel" type="Label" parent="RootMargin/VBox/Content/HomeTab/HomeCard/HomeMargin/HomeVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 36
+text = "0 ₽"
+
+[node name="PlayerIdLabel" type="Label" parent="RootMargin/VBox/Content/HomeTab/HomeCard/HomeMargin/HomeVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.8, 0.72, 1)
+theme_override_font_sizes/font_size = 14
+text = "Игровой ID: VL-4821"
+
+[node name="ServiceLabel" type="Label" parent="RootMargin/VBox/Content/HomeTab"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.62, 0.58, 1)
+theme_override_font_sizes/font_size = 13
+text = "Служба сбора VL, г. Солнышково"
+autowrap_mode = 2
+
+[node name="DocumentsTab" type="ScrollContainer" parent="RootMargin/VBox/Content"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="DocumentsList" type="VBoxContainer" parent="RootMargin/VBox/Content/DocumentsTab"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="PayTab" type="VBoxContainer" parent="RootMargin/VBox/Content"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="PayAmount" type="Label" parent="RootMargin/VBox/Content/PayTab"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 0.9, 1)
+theme_override_font_sizes/font_size = 24
+text = "К оплате: 0 ₽"
+
+[node name="PayHint" type="Label" parent="RootMargin/VBox/Content/PayTab"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.68, 0.62, 1)
+theme_override_font_sizes/font_size = 14
+text = "Получатель: Казначейство Зелёного Домика"
+autowrap_mode = 2
+
+[node name="PaySwipe" parent="RootMargin/VBox/Content/PayTab" instance=ExtResource("2_swipe")]
+unique_name_in_owner = true
+layout_mode = 2
+hint_text = "Сдвиньте, чтобы оплатить"
+confirm_label = "Оплачено!"
+
+[node name="DisclaimerDialog" type="AcceptDialog" parent="."]
+unique_name_in_owner = true
+title = "Важно"
+size = Vector2i(420, 180)
+dialog_text = "Симуляция. Не связано с государственными сервисами. Все организации и документы вымышлены."

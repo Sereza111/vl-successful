@@ -1,0 +1,19 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://ci5p41dcq6p80"
+
+[deps]
+
+files=["res://docs/balance.value.translation", "res://docs/balance.notes.translation"]
+
+source_file="res://docs/balance.csv"
+dest_files=["res://docs/balance.value.translation", "res://docs/balance.notes.translation"]
+
+[params]
+
+compress=1
+delimiter=0
+unescape_keys=false
+unescape_translations=true
