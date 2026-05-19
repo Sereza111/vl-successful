@@ -80,10 +80,10 @@ func get_campaign_status(business_id: String) -> String:
 	if not active_campaigns.has(business_id):
 		return "Нет активной кампании"
 	var camp: Dictionary = active_campaigns[business_id]
-	var exp: int = int(camp.get("expires_day", 0))
-	if TimeManager.game_day > exp:
+	var expires_day: int = int(camp.get("expires_day", 0))
+	if TimeManager.game_day > expires_day:
 		return "Кампания завершена"
-	return "Буст ×%.2f до дня %d" % [float(camp.get("boost", 1.0)), exp]
+	return "Буст ×%.2f до дня %d" % [float(camp.get("boost", 1.0)), expires_day]
 
 
 func _on_day_changed(_day: int) -> void:

@@ -2,14 +2,7 @@ extends Node
 
 signal expenses_updated
 
-const PHONE_RENT_PER_MINUTE := 10
-const PASSIVE_EXPENSES_ENABLED := true
-
-var _seconds_since_phone_rent: int = 0
-
-
 func _ready() -> void:
-	TimeManager.second_tick.connect(_on_second_tick)
 	TimeManager.day_changed.connect(_on_day_changed)
 
 
@@ -38,23 +31,14 @@ func get_today_expenses_text() -> String:
 	return "Сегодня: −%s ₽ расходы" % GameState.format_amount(spent)
 
 
-func _on_second_tick() -> void:
-	if not PASSIVE_EXPENSES_ENABLED:
-		return
-	_seconds_since_phone_rent += 1
-	if _seconds_since_phone_rent >= 60:
-		_seconds_since_phone_rent = 0
-		register_expense(PHONE_RENT_PER_MINUTE, "Аренда телефона", "passive")
-
-
 func _on_day_changed(_day: int) -> void:
 	GameState.reset_daily_totals()
 	expenses_updated.emit()
 
 
 func to_save_dict() -> Dictionary:
-	return {"_seconds_since_phone_rent": _seconds_since_phone_rent}
+	return {}
 
 
-func from_save_dict(data: Dictionary) -> void:
-	_seconds_since_phone_rent = int(data.get("_seconds_since_phone_rent", 0))
+func from_save_dict(_data: Dictionary) -> void:
+	pass

@@ -152,12 +152,85 @@ text = "12 500 ₽"
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.65, 0.68, 0.75, 1)
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 13
 text = "Сегодня расходов пока нет"
+autowrap_mode = 3
 
-[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1218423315]
+[node name="TxFilterHBox" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=251285508]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="FilterAll" type="Button" parent="MarginContainer/VBoxContainer/TxFilterHBox" unique_id=1622137839]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Все"
+
+[node name="FilterIncome" type="Button" parent="MarginContainer/VBoxContainer/TxFilterHBox" unique_id=1115082619]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Доход"
+
+[node name="FilterExpense" type="Button" parent="MarginContainer/VBoxContainer/TxFilterHBox" unique_id=1930544655]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Расход"
+
+[node name="TxScroll" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=2053808361]
+custom_minimum_size = Vector2(0, 140)
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="TxList" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TxScroll" unique_id=617821995]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="LoanPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=1720319319]
+layout_mode = 2
+
+[node name="LoanMargin" type="MarginContainer" parent="MarginContainer/VBoxContainer/LoanPanel" unique_id=313544240]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="LoanVBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/LoanPanel/LoanMargin" unique_id=1624288722]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LoanTitle" type="Label" parent="MarginContainer/VBoxContainer/LoanPanel/LoanMargin/LoanVBox" unique_id=333811882]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Кредиты VL"
+
+[node name="LoanSummary" type="Label" parent="MarginContainer/VBoxContainer/LoanPanel/LoanMargin/LoanVBox" unique_id=2058060611]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.72, 0.78, 1)
+theme_override_font_sizes/font_size = 12
+text = "Кредитов нет"
+autowrap_mode = 3
+
+[node name="LoanButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer/LoanPanel/LoanMargin/LoanVBox" unique_id=511474883]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LoanConsumerButton" type="Button" parent="MarginContainer/VBoxContainer/LoanPanel/LoanMargin/LoanVBox/LoanButtons" unique_id=2132380513]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Взять 10 000 ₽"
+
+[node name="LoanPayButton" type="Button" parent="MarginContainer/VBoxContainer/LoanPanel/LoanMargin/LoanVBox/LoanButtons" unique_id=307590480]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Погасить"
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1218423315]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
 
 [node name="BottomDock" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=228789741]
 unique_name_in_owner = true
@@ -197,3 +270,28 @@ custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Работа"
+
+[node name="BankruptcyDialog" type="AcceptDialog" parent="." unique_id=1131046903]
+unique_name_in_owner = true
+title = "Банкротство"
+ok_button_text = "Экстренный займ"
+dialog_text = "Баланс 0 ₽"
+
+[node name="ToastLayer" type="CanvasLayer" parent="." unique_id=1272784290]
+layer = 10
+
+[node name="ToastLabel" type="Label" parent="ToastLayer" unique_id=1102792358]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -300.0
+offset_top = 120.0
+offset_right = 300.0
+offset_bottom = 170.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

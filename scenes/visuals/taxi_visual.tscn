@@ -18,3 +18,5 @@ script = ExtResource("1_taxi_visual")
 [node name="Checker" type="Line2D" parent="."]
 
 [node name="Headlight" type="Polygon2D" parent="."]
+
+[node name="RouteLine" type="Line2D" parent="."]

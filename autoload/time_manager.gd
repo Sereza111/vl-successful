@@ -25,7 +25,6 @@ func _process(delta: float) -> void:
 
 
 func get_day_progress() -> float:
-	var day_index := int(game_seconds / SECONDS_PER_GAME_DAY)
 	return fmod(game_seconds, SECONDS_PER_GAME_DAY) / SECONDS_PER_GAME_DAY
 
 

@@ -13,7 +13,10 @@ func _ready() -> void:
 	%PoiExchange.pressed.connect(_on_exchange)
 	%PoiAds.pressed.connect(_on_ads)
 	%PoiLicenses.pressed.connect(_on_licenses)
+	%PoiResidential.pressed.connect(_on_residential)
+	%PoiFleet.pressed.connect(_on_fleet)
 	LicenseManager.licenses_updated.connect(_refresh_badges)
+	ProgressionManager.progression_updated.connect(_refresh_badges)
 	BusinessManager.business_updated.connect(_refresh_badges)
 	MarketManager.market_updated.connect(_refresh_badges)
 	_refresh_badges()
@@ -44,6 +47,9 @@ func _refresh_badges() -> void:
 	_badge_licenses.visible = lic_exp
 	_badge_licenses.text = "!"
 
+	if has_node("%PoiFleet"):
+		%PoiFleet.visible = ProgressionManager.business_opened
+
 
 func _on_taxi() -> void:
 	if LicenseManager.has_license("transport"):
@@ -69,3 +75,14 @@ func _on_ads() -> void:
 
 func _on_licenses() -> void:
 	SceneNav.go_to(SceneNav.LICENSE_OFFICE)
+
+
+func _on_residential() -> void:
+	SceneNav.go_to(SceneNav.PROPERTY_OFFICE)
+
+
+func _on_fleet() -> void:
+	if ProgressionManager.business_opened:
+		SceneNav.go_to(SceneNav.TAXI_FLEET)
+	else:
+		SceneNav.go_to(SceneNav.WORK_HUB)

@@ -22,9 +22,9 @@ func _populate_report() -> void:
 			result.get("events", 0)
 		)
 	var net: int = result.get("net", 0)
-	var sign := "+" if net >= 0 else "−"
+	var net_sign := "+" if net >= 0 else "−"
 	var title := "Итог курьера" if result.get("courier", false) else "Итог смены такси"
-	summary_label.text = "%s: %s%s ₽" % [title, sign, GameState.format_amount(absi(net))]
+	summary_label.text = "%s: %s%s ₽" % [title, net_sign, GameState.format_amount(absi(net))]
 	var events: int = result.get("events", 0)
 	var events_sign := "+" if events >= 0 else "−"
 	details_label.text = (
@@ -39,9 +39,10 @@ func _populate_report() -> void:
 		]
 	)
 	if not result.get("courier", false):
-		tax_label.text = "%s\nРейтинг: %s" % [
+		tax_label.text = "%s\nРейтинг: %s\n%s" % [
 			TaxManager.get_tax_status_text(),
 			TaxiCareerManager.get_rating_stars(),
+			TaxiCareerManager.get_xp_progress_text(),
 		]
 	else:
 		tax_label.text = TaxManager.get_tax_status_text()

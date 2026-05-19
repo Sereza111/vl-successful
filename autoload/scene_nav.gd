@@ -12,6 +12,8 @@ const BUSINESS_DETAIL := "res://scenes/business/business_detail.tscn"
 const EXCHANGE := "res://scenes/exchange/vl_exchange.tscn"
 const LICENSE_OFFICE := "res://scenes/licenses/license_office.tscn"
 const COURIER_SHIFT := "res://scenes/work/courier_shift.tscn"
+const TAXI_FLEET := "res://scenes/fleet/taxi_fleet_screen.tscn"
+const PROPERTY_OFFICE := "res://scenes/property/property_office.tscn"
 
 
 func go_to(scene_path: String) -> void:

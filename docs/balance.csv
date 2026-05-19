@@ -1,19 +1,20 @@
 key,value_rub,notes
 starting_balance,12500,GameState default
-ip_license,5000,LicenseManager ip_retail
-transport_license,3000,LicenseManager transport
-oil_gas_license,25000,LicenseManager oil_gas
-advertising_license,15000,LicenseManager advertising_agency
-exchange_license,12000,LicenseManager exchange_broker
-business_open_threshold,50000,ProgressionManager BUSINESS_BALANCE_THRESHOLD
-business_open_cost,20000,BusinessManager BUSINESS_OPEN_COST
-retail_open,0,First shop with IP
-oil_business_open,80000,BusinessManager oil_prom
-gas_business_open,65000,BusinessManager gas_prom
-ads_business_open,40000,BusinessManager ads_owned
-car_comfort_upgrade,15000,TaxiCareerManager tier 1
-car_business_upgrade,40000,TaxiCareerManager tier 2
-ad_campaign_local,3000,AdManager NPC local
-ad_campaign_city,8000,AdManager NPC city
-ad_campaign_industrial,15000,AdManager NPC industrial
-phone_rent_per_minute,10,EconomyManager passive
+food_per_day,200,ExpenseManager
+rent_amount,1500,ExpenseManager every 7 days
+rent_every_days,7,ExpenseManager
+phone_per_minute,10,ExpenseManager
+ip_license,5000,LicenseManager
+transport_license,3000,LicenseManager
+business_open_threshold,50000,ProgressionManager
+business_open_cost,20000,BusinessManager
+xp_per_accepted_trip,25,TaxiCareerManager
+xp_per_declined,-8,TaxiCareerManager
+xp_rating_bonus,15,TaxiCareerManager
+level_threshold_1,0,TaxiCareerManager
+level_threshold_2,100,TaxiCareerManager
+level_threshold_3,250,TaxiCareerManager
+level_threshold_4,500,TaxiCareerManager
+level_threshold_5,1000,TaxiCareerManager
+loan_consumer_max,30000,LoanManager
+loan_emergency_max,5000,LoanManager

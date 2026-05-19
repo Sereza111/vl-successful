@@ -1,6 +1,7 @@
 extends Control
 
 enum Phase { WAITING, OFFER, PICKUP, TRIP }
+enum DriveMode { NORMAL, FAST, ECO }
 
 @onready var shift_timer_label: Label = %ShiftTimerLabel
 @onready var fuel_label: Label = %FuelLabel
@@ -19,8 +20,16 @@ enum Phase { WAITING, OFFER, PICKUP, TRIP }
 @onready var offer_content: Control = %OfferContent
 @onready var waiting_content: Control = %WaitingContent
 @onready var end_shift_button: Button = %EndShiftButton
+@onready var shift_progress_bar: ProgressBar = %ShiftProgressBar
+@onready var passenger_panel: PanelContainer = %PassengerPanel
+@onready var passenger_text: Label = %PassengerText
+@onready var choice_a: Button = %ChoiceA
+@onready var choice_b: Button = %ChoiceB
+@onready var drive_qte: Control = %DriveQte
+@onready var drive_swipe: Control = %DriveSwipe
+@onready var drive_mode_fast: Button = %DriveModeFast
+@onready var drive_mode_eco: Button = %DriveModeEco
 @onready var taxi_layer: CanvasLayer = $TaxiLayer
-
 
 var _trip_event_panel: HBoxContainer
 var _trip_event_timer: float = 0.0
@@ -30,8 +39,6 @@ var _phase: Phase = Phase.WAITING
 var _shift_time_left: float = 0.0
 var _wait_timer: float = 0.0
 var _offer_time_left: float = 0.0
-var _phase_timer: float = 0.0
-var _event_timer: float = 45.0
 var _fuel: int = JobManager.SHIFT_FUEL_MAX
 var _current_order: Dictionary = {}
 var _shift_active: bool = false
@@ -43,15 +50,34 @@ var _orders_accepted: int = 0
 var _orders_declined: int = 0
 var _trip_phase_done: bool = false
 
+var _payout_mult_bonus: float = 1.0
+var _extra_fuel_cost: int = 0
+var _passenger_moment_done: bool = false
+var _skill_event_done: bool = false
+var _orders_since_skill: int = 0
+var _passenger_timer: float = 0.0
+var _drive_mode: DriveMode = DriveMode.NORMAL
+var _trip_duration_mult: float = 1.0
+var _event_timer: float = 0.0
+var _interaction_queue: Array[String] = []
+var _first_order_tutorial: bool = true
+
 
 func _ready() -> void:
 	order_panel.visible = false
 	offer_content.visible = false
 	waiting_content.visible = true
 	payout_flash.visible = false
+	passenger_panel.visible = false
 	skip_button.pressed.connect(_decline_order)
 	end_shift_button.pressed.connect(_on_end_shift_pressed)
 	swipe_confirm.confirmed.connect(_on_swipe_confirmed)
+	choice_a.pressed.connect(func(): _resolve_passenger_moment("a"))
+	choice_b.pressed.connect(func(): _resolve_passenger_moment("b"))
+	drive_qte.resolved.connect(_on_qte_resolved)
+	drive_swipe.resolved.connect(_on_swipe_resolved)
+	drive_mode_fast.pressed.connect(func(): _set_drive_mode(DriveMode.FAST))
+	drive_mode_eco.pressed.connect(func(): _set_drive_mode(DriveMode.ECO))
 	TaxManager.random_event.connect(_on_random_event)
 	taxi_layer.layer = 0
 	_build_trip_event_ui()
@@ -73,6 +99,15 @@ func _process(delta: float) -> void:
 			_process_offer(delta)
 		Phase.PICKUP, Phase.TRIP:
 			_process_trip_phase(delta)
+	if passenger_panel.visible:
+		_passenger_timer -= delta
+		if has_node("%PassengerTimer"):
+			%PassengerTimer.text = "⏱ %d" % maxi(1, int(ceil(_passenger_timer)))
+		event_label.text = "%s  •  Ответьте за %d сек" % [
+			passenger_text.text, maxi(1, int(ceil(_passenger_timer)))
+		]
+		if _passenger_timer <= 0.0:
+			_resolve_passenger_moment("timeout")
 	if _event_timer <= 0.0:
 		_event_timer = randf_range(50.0, 90.0)
 		if randf() < 0.35 and _phase != Phase.OFFER:
@@ -122,6 +157,11 @@ func _start_shift() -> void:
 
 func _spawn_order() -> void:
 	_current_order = JobManager.create_random_order()
+	_payout_mult_bonus = 1.0
+	_extra_fuel_cost = 0
+	_passenger_moment_done = false
+	_skill_event_done = false
+	_drive_mode = DriveMode.NORMAL
 	_phase = Phase.OFFER
 	_offer_time_left = JobManager.OFFER_TIMEOUT_SEC
 	waiting_content.visible = false
@@ -132,27 +172,25 @@ func _spawn_order() -> void:
 	order_route.text = "%s\n↓\n%s" % [from_s, to_s]
 	order_payout.text = "%s ₽" % GameState.format_amount(_current_order.get("payout", 0))
 	var fuel: int = _current_order.get("fuel", 0)
-	var district: String = _current_order.get("district_name", "—")
-	var passenger: String = _current_order.get("passenger_label", "—")
 	order_meta.text = (
 		"%.1f км  •  −%d топливо  •  %s\n%s  •  %s"
 		% [
 			_current_order.get("distance", 0.0),
 			fuel,
 			_current_order.get("risk", "—"),
-			district,
-			passenger,
+			_current_order.get("district_name", "—"),
+			_current_order.get("passenger_label", "—"),
 		]
 	)
 	if TaxiCareerManager.combo_streak >= 2:
-		order_meta.text += "\nСерия %d — бонус к выплате!" % TaxiCareerManager.combo_streak
+		order_meta.text += "\nСерия %d — бонус!" % TaxiCareerManager.combo_streak
 	var can_accept := _fuel >= fuel
 	if swipe_confirm.has_method("set_locked"):
 		swipe_confirm.set_locked(not can_accept)
 	if can_accept and swipe_confirm.has_method("reset"):
 		swipe_confirm.reset()
 	else:
-		status_label.text = "Мало топлива для этого заказа"
+		status_label.text = "Мало топлива"
 	skip_button.disabled = false
 
 
@@ -182,31 +220,66 @@ func _start_pickup() -> void:
 	order_panel.visible = false
 	trip_progress.start_phase("Еду к клиенту", randf_range(2.0, 4.0))
 	status_label.text = "Забираем пассажира…"
+	_hide_drive_ui()
 	if taxi_visual.has_method("start_drive"):
-		taxi_visual.start_drive()
+		var district_id: String = _current_order.get("district_id", "center")
+		taxi_visual.start_drive(district_id)
+	if _first_order_tutorial or randf() < 0.7:
+		_offer_passenger_moment()
 
 
 func _start_trip() -> void:
 	_trip_phase_done = false
 	_phase = Phase.TRIP
 	var distance: float = _current_order.get("distance", 5.0)
-	var duration := clampf(3.0 + distance * 0.15, 3.0, 8.0)
+	var duration := clampf((3.0 + distance * 0.15) * _trip_duration_mult, 3.0, 10.0)
 	trip_progress.start_phase("В пути с пассажиром", duration)
 	status_label.text = "Везём клиента…"
-	_offer_trip_event()
+	_show_drive_mode_buttons()
+	_build_trip_interaction_queue()
+	_advance_interaction_queue()
+
+
+func _build_trip_interaction_queue() -> void:
+	_interaction_queue.clear()
+	if not _passenger_moment_done:
+		_interaction_queue.append("moment")
+	if not _skill_event_done and (_orders_since_skill >= 1 or _passenger_moment_done):
+		_interaction_queue.append("skill" if randf() < 0.55 else "swipe")
+	elif randf() < 0.2:
+		_interaction_queue.append("legacy")
+
+
+func _advance_interaction_queue() -> void:
+	if _interaction_queue.is_empty():
+		return
+	var next: String = _interaction_queue.pop_front()
+	match next:
+		"moment":
+			_offer_passenger_moment()
+		"skill":
+			drive_qte.start()
+			_skill_event_done = true
+		"swipe":
+			drive_swipe.start()
+			_skill_event_done = true
+		"legacy":
+			_offer_legacy_trip_event()
 
 
 func _complete_trip() -> void:
-	var fuel: int = _current_order.get("fuel", 0)
-	var payout: int = _current_order.get("payout", 0)
+	var fuel: int = _current_order.get("fuel", 0) + _extra_fuel_cost
+	var payout: int = int(round(_current_order.get("payout", 0) * _payout_mult_bonus))
 	_fuel -= fuel
 	_fuel_spent += fuel
 	EconomyManager.register_expense(fuel, "Бензин (смена)", "shift")
 	EconomyManager.register_income(payout, "Заказ такси", "shift")
 	_gross_earned += payout
 	_orders_accepted += 1
+	_orders_since_skill += 1
+	_first_order_tutorial = false
 	TaxiCareerManager.register_trip_complete(false)
-	_hide_trip_events()
+	_hide_drive_ui()
 	_show_payout_flash(payout)
 	if taxi_visual.has_method("stop_drive"):
 		taxi_visual.stop_drive()
@@ -216,6 +289,122 @@ func _complete_trip() -> void:
 	trip_progress.stop()
 	_close_offer()
 	_enter_waiting(randf_range(8.0, 15.0))
+
+
+func _offer_passenger_moment() -> void:
+	var ptype: String = _current_order.get("passenger_type", "econom")
+	var plabel: String = _current_order.get("passenger_label", "Пассажир")
+	var moment: Dictionary = PassengerMoments.get_moment(ptype)
+	var line: String = moment.get("text", "…")
+	passenger_text.text = line
+	choice_a.text = moment.get("choice_a", "A")
+	choice_b.text = moment.get("choice_b", "B")
+	passenger_panel.visible = true
+	_passenger_timer = 4.0
+	_passenger_moment_done = true
+	status_label.text = "%s говорит:" % plabel
+	event_label.text = "%s  •  Ответьте за %d сек" % [line, int(ceil(_passenger_timer))]
+	if has_node("%PassengerTimer"):
+		%PassengerTimer.text = "⏱ %d" % int(ceil(_passenger_timer))
+	if has_node("%InteractionDock"):
+		%InteractionDock.move_to_front()
+	passenger_panel.move_to_front()
+
+
+func _resolve_passenger_moment(choice: String) -> void:
+	if not passenger_panel.visible:
+		return
+	passenger_panel.visible = false
+	var ptype: String = _current_order.get("passenger_type", "econom")
+	var moment: Dictionary = PassengerMoments.get_moment(ptype)
+	var effect: Dictionary = moment.get("effect_a", {}) if choice == "a" else moment.get("effect_b", {})
+	if choice == "timeout":
+		effect = {}
+	_apply_moment_effect(effect)
+	if taxi_visual.has_method("pulse_accept"):
+		taxi_visual.pulse_accept()
+	_advance_interaction_queue()
+
+
+func _apply_moment_effect(effect: Dictionary) -> void:
+	if effect.is_empty():
+		event_label.text = "Пассажир промолчал — без изменений"
+		return
+	if effect.has("rating"):
+		TaxiCareerManager.adjust_rating(float(effect.rating))
+	if effect.has("payout_mult"):
+		_payout_mult_bonus *= float(effect.payout_mult)
+	if effect.has("tip"):
+		var tip: int = int(effect.tip)
+		EconomyManager.register_income(tip, "Чаевые пассажира", "shift")
+		_event_delta += tip
+		event_label.text = "+%s ₽ чаевые" % GameState.format_amount(tip)
+	elif effect.has("fuel"):
+		_extra_fuel_cost += int(effect.fuel)
+		event_label.text = "Доп. топливо −%d" % int(effect.fuel)
+	elif effect.has("payout_mult") and float(effect.payout_mult) < 1.0:
+		event_label.text = "Скидка пассажиру"
+	elif effect.has("payout_mult") and float(effect.payout_mult) > 1.0:
+		event_label.text = "Срочная поездка — бонус!"
+	else:
+		event_label.text = "Решение принято"
+	TaxiCareerManager.add_xp(5)
+
+
+func _on_qte_resolved(success: bool) -> void:
+	if success:
+		_payout_mult_bonus *= 1.08
+		EconomyManager.register_income(50, "QTE — чаевые", "shift")
+		_event_delta += 50
+		event_label.text = "Идеальный момент! +8%"
+	else:
+		_extra_fuel_cost += 3
+		event_label.text = "Промах — лишний расход"
+	if taxi_visual.has_method("pulse_accept"):
+		taxi_visual.pulse_accept()
+	_advance_interaction_queue()
+
+
+func _on_swipe_resolved(success: bool) -> void:
+	if success:
+		EconomyManager.register_income(60, "Объезд — бонус", "shift")
+		_event_delta += 60
+		event_label.text = "Уверенный объезд +60 ₽"
+	else:
+		if EconomyManager.register_expense(80, "Пробка", "shift"):
+			_event_delta -= 80
+		event_label.text = "Пробка −80 ₽"
+
+
+func _set_drive_mode(mode: DriveMode) -> void:
+	_drive_mode = mode
+	match mode:
+		DriveMode.FAST:
+			_trip_duration_mult = 0.85
+			_extra_fuel_cost += 2
+			event_label.text = "Режим: быстро"
+		DriveMode.ECO:
+			_trip_duration_mult = 1.15
+			event_label.text = "Режим: эконом"
+		_:
+			_trip_duration_mult = 1.0
+
+
+func _show_drive_mode_buttons() -> void:
+	drive_mode_fast.visible = true
+	drive_mode_eco.visible = true
+
+
+func _hide_drive_ui() -> void:
+	passenger_panel.visible = false
+	_interaction_queue.clear()
+	drive_qte.stop()
+	drive_swipe.stop()
+	drive_mode_fast.visible = false
+	drive_mode_eco.visible = false
+	_hide_trip_events()
+	if has_node("%PassengerTimer"):
+		%PassengerTimer.text = ""
 
 
 func _show_payout_flash(amount: int) -> void:
@@ -235,13 +424,14 @@ func _close_offer() -> void:
 func _enter_waiting(delay: float) -> void:
 	_phase = Phase.WAITING
 	_wait_timer = delay
+	_trip_duration_mult = 1.0
 	status_label.text = "Ищем следующий заказ…"
 
 
 func _on_random_event(message: String, amount: int) -> void:
 	_event_delta += amount
-	var sign := "+" if amount >= 0 else "−"
-	event_label.text = "%s: %s%s ₽" % [message, sign, GameState.format_amount(absi(amount))]
+	var amount_sign := "+" if amount >= 0 else "−"
+	event_label.text = "%s: %s%s ₽" % [message, amount_sign, GameState.format_amount(absi(amount))]
 
 
 func _on_end_shift_pressed() -> void:
@@ -274,19 +464,18 @@ func _build_trip_event_ui() -> void:
 	_trip_event_panel = HBoxContainer.new()
 	_trip_event_panel.alignment = BoxContainer.ALIGNMENT_CENTER
 	_trip_event_panel.visible = false
-	add_child(_trip_event_panel)
+	if has_node("%InteractionDock"):
+		%InteractionDock.add_child(_trip_event_panel)
+	else:
+		add_child(_trip_event_panel)
 	for label_text in ["Объезд", "Чаевые", "Жалоба"]:
 		var b := Button.new()
 		b.text = label_text
-		var action := label_text
-		b.pressed.connect(func(): _resolve_trip_event(action))
+		b.pressed.connect(_resolve_legacy_trip_event.bind(label_text))
 		_trip_event_panel.add_child(b)
 
 
-func _offer_trip_event() -> void:
-	if randf() > 0.45:
-		_trip_event_resolved = true
-		return
+func _offer_legacy_trip_event() -> void:
 	_trip_event_resolved = false
 	_trip_event_timer = 2.5
 	_trip_event_panel.visible = true
@@ -298,7 +487,7 @@ func _hide_trip_events() -> void:
 		_trip_event_panel.visible = false
 
 
-func _resolve_trip_event(action: String) -> void:
+func _resolve_legacy_trip_event(action: String) -> void:
 	if _trip_event_resolved:
 		return
 	_trip_event_resolved = true
@@ -309,11 +498,11 @@ func _resolve_trip_event(action: String) -> void:
 				_event_delta -= 50
 			event_label.text = "Объезд: −50 ₽"
 		"Чаевые":
-			EconomyManager.register_income(120, "Чаевые в поездке", "shift")
+			EconomyManager.register_income(120, "Чаевые", "shift")
 			_event_delta += 120
 			event_label.text = "Чаевые: +120 ₽"
 		"Жалоба":
-			if EconomyManager.register_expense(200, "Жалоба пассажира", "shift"):
+			if EconomyManager.register_expense(200, "Жалоба", "shift"):
 				_event_delta -= 200
 			event_label.text = "Жалоба: −200 ₽"
 
@@ -323,3 +512,5 @@ func _refresh_hud() -> void:
 	var seconds := int(_shift_time_left) % 60
 	shift_timer_label.text = "Смена: %02d:%02d" % [minutes, seconds]
 	fuel_label.text = "Топливо: %d%%" % _fuel
+	if shift_progress_bar:
+		shift_progress_bar.value = _shift_time_left / JobManager.SHIFT_DURATION_SEC

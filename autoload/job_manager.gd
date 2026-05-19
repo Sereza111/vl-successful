@@ -84,7 +84,9 @@ func create_random_order() -> Dictionary:
 
 
 func _enrich_order(order: Dictionary) -> void:
-	var district_ids: Array = TaxiCareerManager.DISTRICTS.keys()
+	var district_ids: Array = TaxiCareerManager.get_accessible_districts()
+	if district_ids.is_empty():
+		district_ids = ["center"]
 	var district_id: String = district_ids[_rng.randi_range(0, district_ids.size() - 1)]
 	var district: Dictionary = TaxiCareerManager.DISTRICTS[district_id]
 	order["district_id"] = district_id
@@ -105,7 +107,12 @@ func _enrich_order(order: Dictionary) -> void:
 	payout_mult *= float(district.get("mult", 1.0))
 	payout_mult *= TaxiCareerManager.get_combo_bonus_mult()
 	payout_mult *= TaxiCareerManager.get_rush_mult()
-	order["payout"] = int(round(int(order.get("payout", 0)) * payout_mult))
+	payout_mult *= TaxiCareerManager.get_level_payout_mult()
+	var base_payout: int = int(order.get("payout", 0))
+	var distance: float = float(order.get("distance", 5.0))
+	if distance > 20.0 and TaxiCareerManager.level < 4:
+		base_payout = int(round(base_payout * 0.85))
+	order["payout"] = int(round(base_payout * payout_mult))
 
 	var time_mult: float = float(pdef.get("time_mult", 1.0))
 	order["distance"] = float(order.get("distance", 5.0)) * time_mult

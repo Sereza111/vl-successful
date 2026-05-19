@@ -30,6 +30,11 @@ AdManager="*res://autoload/ad_manager.gd"
 MarketManager="*res://autoload/market_manager.gd"
 SceneNav="*res://autoload/scene_nav.gd"
 SaveManager="*res://autoload/save_manager.gd"
+ExpenseManager="*res://autoload/expense_manager.gd"
+LoanManager="*res://autoload/loan_manager.gd"
+TaxiFleetManager="*res://autoload/taxi_fleet_manager.gd"
+PropertyManager="*res://autoload/property_manager.gd"
+NotificationManager="*res://autoload/notification_manager.gd"
 
 [display]
 
@@ -51,3 +56,4 @@ theme/custom="res://theme/game_theme.tres"
 
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

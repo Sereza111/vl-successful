@@ -85,6 +85,10 @@ func _collect_state() -> Dictionary:
 		"ad": AdManager.to_save_dict(),
 		"taxi_career": TaxiCareerManager.to_save_dict(),
 		"economy": EconomyManager.to_save_dict(),
+		"expense": ExpenseManager.to_save_dict(),
+		"loan": LoanManager.to_save_dict(),
+		"taxi_fleet": TaxiFleetManager.to_save_dict(),
+		"property": PropertyManager.to_save_dict(),
 	}
 
 
@@ -112,3 +116,11 @@ func _apply_state(data: Dictionary) -> void:
 		TaxiCareerManager.from_save_dict(data.taxi_career)
 	if data.has("economy"):
 		EconomyManager.from_save_dict(data.economy)
+	if data.has("expense"):
+		ExpenseManager.from_save_dict(data.expense)
+	if data.has("loan"):
+		LoanManager.from_save_dict(data.loan)
+	if data.has("taxi_fleet"):
+		TaxiFleetManager.from_save_dict(data.taxi_fleet)
+	if data.has("property"):
+		PropertyManager.from_save_dict(data.property)

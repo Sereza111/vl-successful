@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://srwy767ofg77"]
+[gd_scene load_steps=7 format=3 uid="uid://srwy767ofg77"]
 
 [ext_resource type="Script" path="res://scripts/jobs/taxi_shift.gd" id="1_taxi_shift"]
 [ext_resource type="PackedScene" uid="uid://b7taxi_visual01" path="res://scenes/visuals/taxi_visual.tscn" id="2_taxi_visual"]
 [ext_resource type="PackedScene" uid="uid://cswipeconfirm1" path="res://scenes/ui/components/swipe_confirm.tscn" id="3_swipe"]
 [ext_resource type="PackedScene" uid="uid://ctripprogress1" path="res://scenes/ui/components/trip_progress.tscn" id="4_trip"]
+[ext_resource type="PackedScene" uid="uid://drive_qte_vl" path="res://scenes/ui/components/drive_qte.tscn" id="5_qte"]
+[ext_resource type="PackedScene" uid="uid://drive_swipe_vl" path="res://scenes/ui/components/drive_swipe.tscn" id="6_swipe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_order"]
 bg_color = Color(0.16, 0.18, 0.24, 1)
@@ -92,6 +94,14 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.6, 0.55, 1)
 theme_override_font_sizes/font_size = 14
 text = "Выйти"
+
+[node name="ShiftProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+show_percentage = false
 
 [node name="TaxiVisualSpacer" type="Control" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
@@ -196,3 +206,96 @@ text = "Пропустить заказ"
 [node name="BottomSpacer" type="Control" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="InteractionDock" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PassengerPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer/InteractionDock"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_order")
+
+[node name="PassengerMargin" type="MarginContainer" parent="MarginContainer/VBoxContainer/InteractionDock/PassengerPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="PassengerVBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/InteractionDock/PassengerPanel/PassengerMargin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PassengerHeader" type="HBoxContainer" parent="MarginContainer/VBoxContainer/InteractionDock/PassengerPanel/PassengerMargin/PassengerVBox"]
+layout_mode = 2
+
+[node name="PassengerTitle" type="Label" parent="MarginContainer/VBoxContainer/InteractionDock/PassengerPanel/PassengerMargin/PassengerVBox/PassengerHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "Пассажир"
+
+[node name="PassengerTimer" type="Label" parent="MarginContainer/VBoxContainer/InteractionDock/PassengerPanel/PassengerMargin/PassengerVBox/PassengerHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.75, 0.4, 1)
+theme_override_font_sizes/font_size = 14
+text = "⏱ 4"
+horizontal_alignment = 2
+
+[node name="PassengerText" type="Label" parent="MarginContainer/VBoxContainer/InteractionDock/PassengerPanel/PassengerMargin/PassengerVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = "«Можно подешевле?»"
+autowrap_mode = 3
+
+[node name="ChoiceRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer/InteractionDock/PassengerPanel/PassengerMargin/PassengerVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ChoiceA" type="Button" parent="MarginContainer/VBoxContainer/InteractionDock/PassengerPanel/PassengerMargin/PassengerVBox/ChoiceRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "A"
+
+[node name="ChoiceB" type="Button" parent="MarginContainer/VBoxContainer/InteractionDock/PassengerPanel/PassengerMargin/PassengerVBox/ChoiceRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "B"
+
+[node name="DriveQte" parent="MarginContainer/VBoxContainer/InteractionDock" instance=ExtResource("5_qte")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DriveSwipe" parent="MarginContainer/VBoxContainer/InteractionDock" instance=ExtResource("6_swipe")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DriveModeRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer/InteractionDock"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="DriveModeFast" type="Button" parent="MarginContainer/VBoxContainer/InteractionDock/DriveModeRow"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Быстро"
+
+[node name="DriveModeEco" type="Button" parent="MarginContainer/VBoxContainer/InteractionDock/DriveModeRow"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Эконом"

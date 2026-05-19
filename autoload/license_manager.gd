@@ -110,11 +110,11 @@ func get_status_text(license_id: String) -> String:
 		return "—"
 	if has_license(license_id):
 		var entry: Dictionary = active_licenses[license_id]
-		var exp: int = int(entry.get("expires_day", 0))
-		if exp <= 0:
+		var expires_day_val: int = int(entry.get("expires_day", 0))
+		if expires_day_val <= 0:
 			return "Активна (бессрочно)"
-		var days_left := exp - TimeManager.game_day
-		return "Активна до дня %d (%d дн.)" % [exp, maxi(0, days_left)]
+		var days_left := expires_day_val - TimeManager.game_day
+		return "Активна до дня %d (%d дн.)" % [expires_day_val, maxi(0, days_left)]
 	var cost: int = int(LICENSE_DEFS[license_id].get("cost", 0))
 	return "Купить за %s ₽" % GameState.format_amount(cost)
 

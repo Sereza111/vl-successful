@@ -1,0 +1,200 @@
+
+<style>
+  .plan { padding: 1rem 0; font-size: 14px; }
+  .phase { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 16px 20px; margin-bottom: 12px; border-left: 3px solid #888; }
+  .phase.p1 { border-color: #1D9E75; }
+  .phase.p2 { border-color: #378ADD; }
+  .phase.p3 { border-color: #BA7517; }
+  .phase.p4 { border-color: #534AB7; }
+  .phase-header { display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; }
+  .phase-tag { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+  .p1 .phase-tag { background: #E1F5EE; color: #085041; }
+  .p2 .phase-tag { background: #E6F1FB; color: #0C447C; }
+  .p3 .phase-tag { background: #FAEEDA; color: #633806; }
+  .p4 .phase-tag { background: #EEEDFE; color: #3C3489; }
+  @media (prefers-color-scheme: dark) {
+    .p1 .phase-tag { background: #085041; color: #9FE1CB; }
+    .p2 .phase-tag { background: #0C447C; color: #B5D4F4; }
+    .p3 .phase-tag { background: #633806; color: #FAC775; }
+    .p4 .phase-tag { background: #3C3489; color: #CECBF6; }
+  }
+  .phase-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+  .phase-body { margin-top: 12px; display: none; }
+  .phase-body.open { display: block; }
+  .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+  .feature-card { background: var(--color-background-primary); border-radius: var(--border-radius-md); padding: 10px 12px; border: 1px solid var(--color-border-tertiary); }
+  .feature-card .fc-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 3px; }
+  .feature-card .fc-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+  .chevron { color: var(--color-text-tertiary); font-size: 12px; margin-left: auto; transition: transform 0.2s; }
+  .chevron.open { transform: rotate(180deg); }
+  .section-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; margin-top: 12px; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .tag { font-size: 11px; padding: 3px 8px; background: var(--color-background-primary); border: 1px solid var(--color-border-secondary); border-radius: 20px; color: var(--color-text-secondary); }
+  .ask-btn { display: block; width: 100%; text-align: center; padding: 8px; margin-top: 10px; border-radius: var(--border-radius-md); border: 1px solid var(--color-border-secondary); background: none; color: var(--color-text-secondary); font-size: 13px; cursor: pointer; }
+  .ask-btn:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+</style>
+<div class="plan">
+  <div style="margin-bottom:16px">
+    <div style="font-size:18px;font-weight:500;color:var(--color-text-primary);margin-bottom:4px">Roadmap: VL Successful</div>
+    <div style="font-size:13px;color:var(--color-text-secondary)">Реалистичный бизнес-симулятор на Godot · 4 этапа развития</div>
+  </div>
+
+  <div class="phase p1">
+    <div class="phase-header" onclick="toggle('ph1')">
+      <span class="phase-tag">Этап 1</span>
+      <span class="phase-title">Экономика и прогресс</span>
+      <span class="chevron" id="ch1">▼</span>
+    </div>
+    <div class="phase-body" id="ph1">
+      <div class="section-label">Что реализовать</div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="fc-title">Система опыта / уровней</div>
+          <div class="fc-desc">Уровень водителя влияет на цену поездки и доступность маршрутов</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-title">Реалистичные расходы</div>
+          <div class="fc-desc">Аренда, еда, телефон — ежедневные списания. Банкротство если 0 ₽</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-title">Кредиты и займы</div>
+          <div class="fc-desc">Взять кредит в банке, платить проценты, просрочка = штраф</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-title">История транзакций</div>
+          <div class="fc-desc">Полная лента операций с фильтрами — как в настоящем банке</div>
+        </div>
+      </div>
+      <div class="section-label">Технические задачи в Godot</div>
+      <div class="tag-row">
+        <span class="tag">Autoload для GameState</span>
+        <span class="tag">Timer для ежедневных платежей</span>
+        <span class="tag">Resource для данных игрока</span>
+        <span class="tag">Сохранение через JSON</span>
+      </div>
+      <button class="ask-btn" onclick="sendPrompt('Как сделать систему ежедневных расходов в Godot для бизнес-симулятора?')">Как реализовать ежедневные расходы в Godot →</button>
+    </div>
+  </div>
+
+  <div class="phase p2">
+    <div class="phase-header" onclick="toggle('ph2')">
+      <span class="phase-tag">Этап 2</span>
+      <span class="phase-title">Больше работ и бизнесов</span>
+      <span class="chevron" id="ch2">▼</span>
+    </div>
+    <div class="phase-body" id="ph2">
+      <div class="section-label">Новые источники дохода</div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="fc-title">Своё такси-ИП</div>
+          <div class="fc-desc">Нанять 1–3 водителей, получать % с их заработка пассивно</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-title">Торговля</div>
+          <div class="fc-desc">Купи дешевле / продай дороже. Рынок с колебаниями цен</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-title">Недвижимость</div>
+          <div class="fc-desc">Купить квартиру, сдавать, получать пассивный доход каждую «неделю»</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-title">Инвестиции</div>
+          <div class="fc-desc">Упрощённый фондовый рынок с 3–5 акциями, волатильность по рандому</div>
+        </div>
+      </div>
+      <div class="section-label">Прогрессия</div>
+      <div class="tag-row">
+        <span class="tag">Работа → ИП → ООО → Холдинг</span>
+        <span class="tag">Лицензии открывают новые бизнесы</span>
+        <span class="tag">Репутация влияет на клиентов</span>
+      </div>
+      <button class="ask-btn" onclick="sendPrompt('Как сделать пассивный доход от найма сотрудников в Godot?')">Как сделать найм сотрудников в Godot →</button>
+    </div>
+  </div>
+
+  <div class="phase p3">
+    <div class="phase-header" onclick="toggle('ph3')">
+      <span class="phase-tag">Этап 3</span>
+      <span class="phase-title">Реализм и атмосфера</span>
+      <span class="chevron" id="ch3">▼</span>
+    </div>
+    <div class="phase-body" id="ph3">
+      <div class="section-label">Что делает игру живой</div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="fc-title">Случайные события</div>
+          <div class="fc-desc">Штраф от налоговой, поломка авто, выгодный контракт — раз в игровую неделю</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-title">Уведомления-пуши</div>
+          <div class="fc-desc">«Зачислено 2 490 ₽» — как в банковском приложении, анимированно</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-title">Игровое время</div>
+          <div class="fc-desc">День/неделя/месяц. Аренда списывается в 1-е число, налог — раз в квартал</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-title">Соседи-конкуренты</div>
+          <div class="fc-desc">NPC-бизнесмены с именами. Они тоже растут — давят на рынок</div>
+        </div>
+      </div>
+      <div class="section-label">Звук и визуал</div>
+      <div class="tag-row">
+        <span class="tag">Звук уведомления при транзакции</span>
+        <span class="tag">Анимация роста баланса</span>
+        <span class="tag">Цвет карты меняется по уровню</span>
+        <span class="tag">Тёмная / светлая тема банка</span>
+      </div>
+      <button class="ask-btn" onclick="sendPrompt('Как сделать систему случайных событий в Godot для симулятора?')">Как реализовать случайные события →</button>
+    </div>
+  </div>
+
+  <div class="phase p4">
+    <div class="phase-header" onclick="toggle('ph4')">
+      <span class="phase-tag">Этап 4</span>
+      <span class="phase-title">Цели и удержание игрока</span>
+      <span class="chevron" id="ch4">▼</span>
+    </div>
+    <div class="phase-body" id="ph4">
+      <div class="section-label">Мотивация играть дальше</div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="fc-title">Цели и достижения</div>
+          <div class="fc-desc">«Заработай 100 000 ₽» / «Открой ООО» / «Сдай 5 квартир». С наградами</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-title">Лидерборд</div>
+          <div class="fc-desc">Топ-10 бизнесменов города (можно сделать локальный или онлайн)</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-title">Сюжетные квесты</div>
+          <div class="fc-desc">«Налоговая проверка» или «Инвестор предлагает партнёрство» — мини-истории</div>
+        </div>
+        <div class="feature-card">
+          <div class="fc-title">Новый игрок+</div>
+          <div class="fc-desc">После достижения цели — хардкор-режим с реальной инфляцией и кризисами</div>
+        </div>
+      </div>
+      <button class="ask-btn" onclick="sendPrompt('Как сделать систему квестов и достижений в Godot?')">Как сделать квесты в Godot →</button>
+    </div>
+  </div>
+
+  <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:14px 18px;margin-top:4px;border:1px solid var(--color-border-tertiary)">
+    <div style="font-size:13px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px">Что сделать прямо сейчас (быстрые победы)</div>
+    <div style="font-size:13px;color:var(--color-text-secondary);line-height:1.8">
+      1. Добавить <b style="color:var(--color-text-primary)">анимацию цифр баланса</b> — число «считается» при открытии<br>
+      2. Сделать <b style="color:var(--color-text-primary)">историю транзакций</b> в карточке банка (список с иконками)<br>
+      3. Добавить <b style="color:var(--color-text-primary)">таймер смены такси</b> с прогресс-баром — видно что работаешь<br>
+      4. Ввести <b style="color:var(--color-text-primary)">ежедневный расход</b> (хотя бы -200 ₽ еда) — чтобы баланс не стоял
+    </div>
+  </div>
+</div>
+<script>
+function toggle(id) {
+  const body = document.getElementById(id);
+  const num = id.replace('ph','');
+  const ch = document.getElementById('ch'+num);
+  const open = body.classList.toggle('open');
+  ch.classList.toggle('open', open);
+}
+</script>
